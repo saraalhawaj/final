@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {{person}}
+    <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Create" class="btn btn-primary">
+    </form>
+{% endblock content %}

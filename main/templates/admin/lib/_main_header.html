@@ -1,0 +1,6 @@
+{% extends 'adminlte/lib/_main_header.html' %}
+<big><a href="/create/">+<big></a>
+
+{% block logout_url %}
+    {% url 'admin:logout' %}
+{% endblock logout_url %}

@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block body %}
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Search the database</h2>
+                    <input id='search' type='text' style='color:orange'/>
+                    <p id='results' class='text-faded'>Results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js'></script>
+	<script type='text/javascript'>
+	$('#search').on('keyup', function() {
+		$.ajax({
+			type: 'GET',
+			url: '/json_response/',
+			data: {
+				search:$('#search').val(),
+			},
+			error:function() {
+				$('#results').html('<p>Error</p>');
+
+			},
+			success:function(data) {
+				$('#results').text('');
+				for(i=0; i < data.length; i++) {
+				$('#results').append('<a class= "text-faded" href="../list_view/?id=' + data[i][1] + '&type=' + data[i][2] + '"</a>"' + data[i][0] + '');
+				}
+				}
+			
+		})
+	})
+</script>
+
+{% endblock body %}

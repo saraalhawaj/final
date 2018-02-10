@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-6">
+			<div class="card">
+				{% if instance.book %}
+					<img class="card-img-top" src="{{instance.book.url}}" alt="Book image">
+				{% endif %}
+			  <div class="card-body">
+			    <h5 class="card-title">{{instance.username}}</h5>
+			    <p class="card-text">{{instance.feed}}</p>
+			    <p class="card-text">{{instance.updated}}</p>
+			    <p class="card-text">{{instance.timestamp}}</p>
+			    <p class="card-text">
+				    <button class="btn" onclick="like_button()">
+						<div id="like-count">{{count}}</div>
+						<i id="like-heart" class="fa fa-star {% if liked %}text-warning{% endif %}" aria-hidden="true"></i>
+					</button>
+				</p>
+			    <!-- This is a reply -->
+			  </div>
+			  <p class="card-text">
+			  	{% for reply in replys %}
+			  		<div class="alert alert-primary">({{reply.timestamp|timesince}}){{reply.user}}: {{reply.reply|linebreaks}}</div>
+			  	{% endfor %}
+			  </p>
+			  <p class="card-text">
+			  	<form action="{% url 'detail' pk=instance.pk %}" method="POST">
+			  		{% csrf_token %}
+			  		{{form|crispy}}
+			  		<input type="submit" class="btn btn-outline-primary" value="Submit">
+			  	</form>
+			  </p>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
+
+<script>
+	function like_button(){
+		$.ajax({
+			type:"GET",
+			url:"{% url 'likes' myfeed_id=instance.pk %}",
+			error: function(){
+				alert("Something went wrong!")
+			},
+			success: function(data){
+				$("#like-count").text(data.count);
+				if(data.action==="like")
+				{
+					$("#like-heart").addClass("text-warning");
+				}
+				else
+				{
+					$("#like-heart").removeClass("text-warning");
+				}
+			},
+		});
+	}
+</script>
+{% endblock content %}

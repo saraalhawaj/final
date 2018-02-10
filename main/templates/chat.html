@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <form action="/message/send/" method="POST">
+        {% csrf_token %}
+        <input type="text" name='message' placeholder=" write a message"><br>
+        <input type="hidden" name='recipient' value="{{recipient}}"><br>
+        <input type="submit" value="Send">
+    </form>
+
+    
+    {% for message in messages %}
+        {{message.text}}<br>
+        {{message.time}}<br>
+        {{message.user}}<br><br>
+    {% endfor %}
+    {% for sent in msgs_sent %}
+        {{sent.text}}<br>
+        {{sent.time}}<br>
+        {{sent.user}}<br>
+    {% endfor %}
+
+    Logged in as: <h3>{{request.user}}</h3>
+    {% for msg in msgs %}
+        {% if msg.user == request.user %}
+            <div style="text-align:right;">
+        {% else %}
+            <div style="text-align:left;">
+        {% endif %}
+            <hr>
+            <strong>{{msg.user}}:</strong> {{msg.text}}<br>
+            <small>{{msg.time}}</small>
+        </div>
+    {% endfor %}
+    </div>
+</body>
+</html>
+

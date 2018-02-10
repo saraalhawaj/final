@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block content %}
+
+<br><br>
+<form action="{% url 'list' %}" method="GET" class="input-group">
+    <input type="text" name="search" placeholder="Search for feeds..." class="form-control" value="{{request.GET.search}}">
+    <div class="input-group-append">
+        <input type="submit" value="Search" class="btn btn-outline-primary">
+    </div>
+</form>
+<br><br>
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-sm-6">
+                <div class="card">
+                    {% if object.book %}
+                        <img class="card-img-top" src="{{object.book.url}}" alt="Book image">
+                    {% endif %}
+                    <div class="card-body">
+                <h6 class="card-title mb-1">
+                     <hr class="my-0">
+              <div class="card-body py-2 small">
+                <a class="mr-3 d-inline-block" href="#">
+                  <i class="fa fa-fw fa-star"></i>Add to</a>
+                <a class="mr-3 d-inline-block" href="#">
+                  <i class="fa fa-fw fa-comment"></i>Comment</a>
+                 
+              </div>
+                    <h5 class="card-title">{{object.username}}</h5>
+                    <p class="card-text">{{object.feed}}</p>
+                    <p class="card-text">{{object.timestamp}}</p>
+                    <p class="card-text">Author: {{object.user}}</p>
+                    <a href="{% url 'detail' pk=object.pk %}" class="btn btn-info">detail</a>
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                        <a href="{% url 'update' pk=object.pk %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'delete' pk=object.pk %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

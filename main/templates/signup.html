@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Signin Studential</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body class="text-center">
+      <img class="mb-4" src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Student-icon.png" alt="" width="72" height="72">
+	<div class="card">
+		<div class="card-body center">
+			
+			
+		</div>
+	</div>
+	<form action="{% url 'signup' %}" method="POST">
+	    {% csrf_token %}
+	    {{signup_form|crispy}}
+	    <input type="submit" value="Sign Up" class="btn btn-primary" />
+	</form>
+	<label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+     
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+  </body>
+</html>
+{% endblock content %}

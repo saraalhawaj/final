@@ -1,0 +1,26 @@
+{% extends 'adminlte/lib/_main_sidebar.html' %}
+{% block logo_text %}<b>Student</b>ial{% endblock %}
+
+{% block nav_links %}
+<big><a href="/create/">+<big></a>
+    <li>
+        <a href="/some/url">
+            <i class="fa fa-dashboard"></i> <span>Home</span>
+        </a>
+    </li>
+    <li>
+        <a href="/some/url">
+            <i class="fa fa-user"></i> <span>Profile</span>
+        </a>
+    </li>
+    <li>
+        <a href="/some/url">
+            <i class="fa fa-university"></i> <span>Q&A</span>
+        </a>
+    </li>
+    <li>
+        <a href="/edit_profile/">
+            <i class="fa fa-cog"></i> <span>Settings</span>
+        </a>
+    </li>
+{% endblock nav_links %}
